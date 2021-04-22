@@ -1,11 +1,14 @@
 import { GetStaticProps } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { format, parseISO} from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import { api } from '../services/api'
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString'
 import styles from './home.module.scss'
+import { useContext } from 'react'
+import { PlayerContext } from '../contexts/PlayerContext'
+
 
 type Episode = {
   id: string;
@@ -25,6 +28,8 @@ type HomeProps = {
 }
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
+  const { play } = useContext(PlayerContext)
+
   return (
     <div className={styles.homepage}>
       <section className={styles.latestEpisodes}>
@@ -44,8 +49,8 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                   <span>{episode.durationAsString}</span>
                 </div>
 
-                <button type="button">
-                  <img src="/play-green.svg" alt="Tocar episodio"/>
+                <button type="button" onClick={() => play(episode)}>
+                  <img src="/play-green.svg" alt="Tocar episodio" />
                 </button>
               </li>
             )
@@ -72,7 +77,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
               return (
                 <tr key={episode.id}>
                   <td style={{ width: 100 }}>
-                    <Image 
+                    <Image
                       width={128}
                       height={128}
                       src={episode.thumbnail}
@@ -101,13 +106,13 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
         </table>
       </section>
     </div>
-    
+
 
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  
+
   const { data } = await api.get('episodes', {
     params: {
       _limit: 12,
@@ -131,7 +136,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const latestEpisodes = episodes.slice(0, 2)
   const allEpisodes = episodes.slice(2, episodes.lenght)
-  
+
   return {
     props: {
       latestEpisodes: latestEpisodes,
