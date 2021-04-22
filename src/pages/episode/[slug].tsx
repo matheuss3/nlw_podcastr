@@ -1,4 +1,5 @@
 // Teste githubs
+// Escrevi no pc
 
 import { format, parseISO } from 'date-fns';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -26,7 +27,7 @@ type EpisodeProps = {
 }
 
 
-export default function Episode({ episode }: EpisodeProps ) {
+export default function Episode({ episode }: EpisodeProps) {
     return (
         <div className={styles.episode}>
             <div className={styles.thumbnailContainer}>
