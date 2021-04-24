@@ -1,5 +1,5 @@
 .playerContainer {
-    padding: 3rem 4rem;
+    padding: 2rem 3rem;
     width: 26.5rem;
     height: 100vh;
 
@@ -13,6 +13,7 @@
     header {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 1rem;
     }
 
@@ -24,7 +25,7 @@
     footer {
         align-self: stretch;
         
-        &.empty {
+        &.empty .progress {
             opacity: 0.5;
         }
     }
@@ -97,7 +98,10 @@
     margin-top: 2.5rem;
     gap: 1.5rem;
     
+
     button {
+
+
         background: transparent;
         border: 0;
         font-size: 0;
@@ -106,10 +110,22 @@
         
         &:disabled {
             cursor: default;
+            opacity: 0.5;
         }
+
+
+
 
         &:hover:not(:disabled) {
             filter: brightness(0.7)
+        }
+
+        &.isActive {
+            filter: invert(0.35) sepia(1) saturate(3) hue-rotate(100deg);
+        }
+        
+        &.isActive:hover {
+            filter: brightness(0.2) invert(0.35) sepia(1) saturate(3) hue-rotate(100deg);
         }
 
         &.playButton {
