@@ -5,6 +5,7 @@ import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 
 import Image from 'next/image'
+import { IoIosClose } from 'react-icons/io'
 
 import styles from './styles.module.scss'
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString'
@@ -12,7 +13,7 @@ import { convertDurationToTimeString } from '../../utils/convertDurationToTimeSt
 export function Player() {
     const audioRef = useRef<HTMLAudioElement>(null)
     const [progress, setProgress] = useState(0)
-    
+
     function setupProgressListener() {
         audioRef.current.currentTime = 0
 
@@ -21,7 +22,7 @@ export function Player() {
         })
     }
 
-    function handleSeek(amount : number) {
+    function handleSeek(amount: number) {
         audioRef.current.currentTime = amount
         setProgress(amount)
     }
@@ -69,6 +70,7 @@ export function Player() {
     }, [isPlaying])
     return (
         <div className={styles.playerContainer}>
+            <IoIosClose size={30} onClick={clearPlayer} />
             <header>
                 <img src="playing.svg" alt="Tocando agora" />
                 <strong>Tocando agora</strong>
@@ -93,7 +95,7 @@ export function Player() {
 
             <footer className={!episode ? styles.empty : ''}>
                 <div className={styles.progress}>
-                    <span>{ convertDurationToTimeString(progress) }</span>
+                    <span>{convertDurationToTimeString(progress)}</span>
                     <div className={styles.slider}>
                         {episode ? (
                             <Slider
@@ -107,7 +109,7 @@ export function Player() {
                         ) : (
                             <div className={styles.emptySlider} />)}
                     </div>
-                    <span>{ convertDurationToTimeString(episode?.duration ?? 0) }</span>
+                    <span>{convertDurationToTimeString(episode?.duration ?? 0)}</span>
                 </div>
 
                 {episode && (
@@ -124,9 +126,9 @@ export function Player() {
                 )}
 
                 <div className={styles.buttons}>
-                    <button 
-                        type='button' 
-                        disabled={!episode} 
+                    <button
+                        type='button'
+                        disabled={!episode}
                         onClick={toggleShuffle}
                         className={isShuffling ? styles.isActive : ''}
                     >
@@ -150,10 +152,10 @@ export function Player() {
                     <button type='button' disabled={!hasNext} onClick={playNext}>
                         <img src="/play-next.svg" alt="Tocar próxima" />
                     </button>
-                    <button 
-                        type='button' 
+                    <button
+                        type='button'
                         disabled={!episode}
-                        onClick={toggleLoop} 
+                        onClick={toggleLoop}
                         className={isLooping ? styles.isActive : ''}
                     >
                         <img src="/repeat.svg" alt="Repetir" />

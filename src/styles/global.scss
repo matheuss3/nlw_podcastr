@@ -60,3 +60,18 @@ h2 {
 button {
     cursor: pointer;
 }
+
+*::-webkit-scrollbar-track{
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}  
+
+*::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--gray-100);
+}
